@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Info</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Stock Info Lookup</h1>
+    <form method="POST">
+        <label for="symbol">Enter Stock Symbol:</label>
+        <input type="text" id="symbol" name="symbol" required>
+        <button type="submit">Get Info</button>
+    </form>
+
+    {% if stock_data %}
+        <h2>Result:</h2>
+        <div class="result">
+            {% if stock_data.error %}
+                <p class="error">{{ stock_data.error }}</p>
+            {% else %}
+                <p>{{ stock_data.current_time }}</p>
+                <p>{{ stock_data.company_name }} ({{ stock_data.symbol }})</p>
+                <p>{{ stock_data.stock_price }} {{ stock_data.formatted_change }} ({{ stock_data.change_percent }})</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>
